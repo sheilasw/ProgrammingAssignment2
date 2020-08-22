@@ -6,6 +6,14 @@
 # In order to make this possible, makeCacheMatrix has functions to get the original input matrix, 
 # to retrieve the cached inverted matrix and to cache the inverted matrix.
 
+# These functions work in tandem to invert and cache the inverted form of an input matrix.
+# makeCacheMatrix stores information on the matrix and performs the caching. cacheSolve takes as its
+# input the output from makeCacheMatrix and does one of the following:
+# 1) if the inverted matrix is cached, it returns the cached value.
+# 2) if the inverted matrix is not cached, it creates the inverted matrix, caches it, and returns it.
+# In order to make this possible, makeCacheMatrix has functions to get the original input matrix, 
+# to retrieve the cached inverted matrix and to cache the inverted matrix.
+
 makeCacheMatrix <- function(m.x = matrix()) {
         
         # test that the input is actually a matrix
@@ -78,3 +86,4 @@ cacheSolve <- function(l.x, ...) {
         # And return it
         m.inv.new
 }
+
