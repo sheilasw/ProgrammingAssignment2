@@ -1,7 +1,10 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
+# These functions work in tandem to invert and cache the inverted form of an input matrix.
+# makeCacheMatrix stores information on the matrix and performs the caching. cacheSolve takes as its
+# input the output from makeCacheMatrix and does one of the following:
+# 1) if the inverted matrix is cached, it returns the cached value.
+# 2) if the inverted matrix is not cached, it creates the inverted matrix, caches it, and returns it.
+# In order to make this possible, makeCacheMatrix has functions to get the original input matrix, 
+# to retrieve the cached inverted matrix and to cache the inverted matrix.
 
 makeCacheMatrix <- function(m.x = matrix()) {
         
@@ -41,6 +44,7 @@ makeCacheMatrix <- function(m.x = matrix()) {
         # get the inverted matrix
         get.inv <- function() m.inv
         
+        # create the list "matrix"
         list(set.orig = set.orig,
              get.orig = get.orig,
              set.inv = set.inv,
@@ -48,9 +52,10 @@ makeCacheMatrix <- function(m.x = matrix()) {
         
 }
 
+# Return a matrix that is the inverse of 'x'
+
 cacheSolve <- function(l.x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-        
+        # Confirm that the input is a list as expected
         if(is.list(l.x) == FALSE) {
                 v.msg = paste("cacheSolve requires a list as input. Run makeCacheMatrix() and store",
                               "it to a variable to use as input to cacheSolve, or wrap cacheSolve",
@@ -58,16 +63,20 @@ cacheSolve <- function(l.x, ...) {
                 return(message(v.msg))
         }
         
-        # Get the cached matrix
+        # Get the cached matrix - currently throwing a warning because it only compares what's in [1,1]
         m.cache.inv = l.x$get.inv()
+        
         if(!is.na(m.cache.inv)) {
-                # inverted matrix is cached
+                # inverted matrix is cached so we return the cached value
                 message("Returning cached inverted matrix.")
                 return(m.cache.inv)
         }
         
+        # The inverted matrix hasn't been cached, so now we invert it
         m.to.invert = l.x$get.orig()
         m.inv.new = solve(m.to.invert)
+        # And cache it
         l.x$set.inv(m.inv.new)
+        # And return it
         m.inv.new
 }
