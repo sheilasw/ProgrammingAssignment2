@@ -55,7 +55,7 @@ cacheSolve <- function(l.x, ...) {
         
         # Get the cached matrix
         m.cache.inv = l.x$get.inv()
-        if(!is.na(m.inv)) {
+        if(!is.na(m.cache.inv)) {
                 # inverted matrix is cached
                 message("Returning cached inverted matrix.")
                 return(m.cache.inv)
