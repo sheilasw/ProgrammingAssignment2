@@ -5,31 +5,36 @@
 
 makeCacheMatrix <- function(m.x = matrix()) {
         # test that the matrix is square
-        var.matrixdim <- dim(x)
-        if(var.matrixdim[1] != var.matrixdim[2]) {
+        var.mdim <- dim(m.x)
+        if(var.mdim[1] != var.mdim[2]) {
                 message("makeCacheMatrix requires a square matrix (same # rows and # columns")
                 exit()
         }
         
+        # initializing the matrix variables
+        m.orig <- matrix()
+        m.inv <- matrix()
+        
         # stores the original matrix used. For comparison to see whether the matrix being
         # supplied matches the matrix that was supplied last time
         set.orig <- function(m.y) {
-                matrix.orig <<- m.y
+                m.orig <<- m.y
                 # if the original matrix is being stored, then it's a new one. Removed cached 
                 # inverted matrix
-                matrix.inv <<- NULL
+                m.inv <<- NULL
         }
-        get.orig <- function() matrix.input
+        get.orig <- function() m.orig
         
         set.inv <- function(m.z) {
-                matrix.inv <<- m.z
+                m.inv <<- m.z
         }
-        get.inv <- function() matrix.inv
+        get.inv <- function() m.inv
         
         list(set.orig = set.orig,
              get.orig = get.orig,
              set.inv = set.inv,
              get.inv = get.inv)
+        
 }
 
 
