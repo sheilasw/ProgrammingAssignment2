@@ -4,11 +4,16 @@
 ## Write a short comment describing this function
 
 makeCacheMatrix <- function(m.x = matrix()) {
+        
+        # test that the input is actually a matrix
+        if(!is.matrix(m.x)) {
+                return(message("The makeCacheMatrix function requires a matrix as its input."))
+        }
+        
         # test that the matrix is square
         var.mdim <- dim(m.x)
         if(var.mdim[1] != var.mdim[2]) {
-                message("makeCacheMatrix requires a square matrix (same # rows and # columns")
-                exit()
+                return(message("makeCacheMatrix requires a square matrix (same # rows and # columns"))
         }
         
         # initializing the matrix variables
@@ -47,10 +52,10 @@ cacheSolve <- function(l.x, ...) {
         ## Return a matrix that is the inverse of 'x'
         
         if(is.list(l.x) == FALSE) {
-                message("cacheSolve requires a list as input. Run makeCacheMatrix() and store it 
-                        to a variable to use as input to cacheSolve, or wrap cacheSolve around 
-                        makeCacheMatrix.")
-                exit
+                v.msg = paste("cacheSolve requires a list as input. Run makeCacheMatrix() and store",
+                              "it to a variable to use as input to cacheSolve, or wrap cacheSolve",
+                              "around makeCacheMatrix.")
+                return(message(v.msg))
         }
         
         # Get the cached matrix
