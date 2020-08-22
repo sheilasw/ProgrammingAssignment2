@@ -61,7 +61,7 @@ cacheSolve <- function(l.x, ...) {
                 return(message(v.msg))
         }
         
-        # Get the cached matrix - currently throwing a warning because it only compares what's in [1,1]
+        # Get the cached matrix
         m.cache.inv = l.x$get.inv()
         
         if(sum(is.na(m.cache.inv) == 0)) {
