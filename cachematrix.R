@@ -29,19 +29,9 @@ makeCacheMatrix <- function(m.x = matrix()) {
                 return(message("makeCacheMatrix requires a numeric matrix."))
         }
         
-        # initializing the matrix variables
+        # initialize the matrix variables
         m.orig <<- m.x
         m.inv <- matrix()
-        
-        # stores the original matrix used. For comparison to see whether the matrix being
-        # supplied matches the matrix that was supplied last time. I don't think this is necessary -
-        # I can't see how it could be useful in the way this is set up. Remove before final
-        set.orig <- function(m.y) {
-                m.orig <<- m.y
-                # if the original matrix is being stored, then it's a new one. Removed cached 
-                # inverted matrix
-                m.inv <<- NULL
-        }
         
         # get the input matrix for inversion
         get.orig <- function() m.orig
@@ -55,8 +45,7 @@ makeCacheMatrix <- function(m.x = matrix()) {
         get.inv <- function() m.inv
         
         # create the list "matrix"
-        list(set.orig = set.orig,
-             get.orig = get.orig,
+        list(get.orig = get.orig,
              set.inv = set.inv,
              get.inv = get.inv)
         
