@@ -16,7 +16,17 @@ makeCacheMatrix <- function(m.x = matrix()) {
         # test that the matrix is square
         var.mdim <- dim(m.x)
         if(var.mdim[1] != var.mdim[2]) {
-                return(message("makeCacheMatrix requires a square matrix (same # rows and # columns"))
+                return(message("makeCacheMatrix requires a square matrix (same # rows and # columns."))
+        }
+        
+        # test that the matrix doesn't include any NAs
+        if(sum(is.na(m.x)) != 0) {
+                return(message("makeCacheMatrix can't work with a matrix that has NA values."))
+        }
+        
+        # test that the matrix is numeric
+        if(!is.numeric(m.x)) {
+                return(message("makeCacheMatrix requires a numeric matrix."))
         }
         
         # initializing the matrix variables
@@ -52,8 +62,7 @@ makeCacheMatrix <- function(m.x = matrix()) {
         
 }
 
-# Return a matrix that is the inverse of 'x'
-
+# Return a matrix that is the inverse of the original matrix
 cacheSolve <- function(l.x, ...) {
         # Confirm that the input is a list as expected
         if(is.list(l.x) == FALSE) {
@@ -66,13 +75,13 @@ cacheSolve <- function(l.x, ...) {
         # Get the cached matrix - currently throwing a warning because it only compares what's in [1,1]
         m.cache.inv = l.x$get.inv()
         
-        if(!is.na(m.cache.inv)) {
+        if(sum(is.na(m.cache.inv) == 0)) {
                 # inverted matrix is cached so we return the cached value
                 message("Returning cached inverted matrix.")
                 return(m.cache.inv)
         }
         
-        # The inverted matrix hasn't been cached, so now we invert it
+        # The inverted matrix isn't in the cache, so now we invert it
         m.to.invert = l.x$get.orig()
         m.inv.new = solve(m.to.invert)
         # And cache it
